@@ -1,0 +1,94 @@
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.3.0/d3.js"></script>
+  <script src="http://dimplejs.org/dist/dimple.v2.3.0.min.js"></script>
+</head>
+<body>
+  <div id="title">
+    <h1>Quantified Self</h1>
+  </div>
+<div class="container">
+  <div id="row">
+    <div class="col-md-10 col-md-offset-1">
+      <h4>Design Question</h4>
+      <p>Is there a relationship between the amount of sleep and amount of physical activity I perform?</p>
+      <br>
+      <h4>Data</h4>
+      <p>Fitbit has a user portal that allows the user to export data to a CSV file. Unfortunately, Fitbit only allows the user to download 31 days of data at one time. I made 8 downloads, one for each month I have worn a Fitbit, and then combined them all to into a single CSV file.</p>
+      <p>Each row of the CSV file represented one single day of 2016. To look at the data by month, I opened the CSV in excel and added a column that reads the date and returns the month (=TEXT(A2,"yy-mmm"). I then wrote a formula that summed all data that matched each month (=SUMIF($B$2:$B$246,$A2,D$2:D$246) and produced a simplified CSV that tallied monthly sums for both physical activity and minutes of sleep.</p>
+      <br>
+      <h4>Data Visualization</h4>
+      <p>I created the first data visualization by using an open source JavaScript charting API for D3 called Dimple.js. The total number of minutes spent asleep for the month corresponds with the size of the bubble and its position along the y-axis. I elected to represent minutes asleep in two ways on this chart to make the data easier to read. The bubble chart demonstrated that my sleep drops while school is in session.</p>
+    </div><!--col-->
+  </div><!--row-->
+</div><!--container-->
+
+<object id="chart1" type="text/html" data="chart1.html"></object>
+<div class="container">
+  <div id="row">
+    <div class="col-md-10 col-md-offset-1">
+      <p>For the second data visualization I created a bar chart to look for patterns in my physical activity. My activity levels were highest during warm weather months, dropping around November and picking back up in the new year.</p>
+    </div><!--col-->
+  </div><!--row-->
+  </div><!--container-->
+
+  <div id="chartContainer">
+    <script type="text/javascript">
+//http://dimplejs.org/advanced_examples_viewer.html?id=advanced_bar_labels
+var svg = dimple.newSvg("#chartContainer", 590, 400);
+d3.csv("data/fb_2016_clean.csv", function(data) {
+  var myChart = new dimple.chart(svg, data);
+  myChart.setBounds(65, 45, 505, 315)
+  var x = myChart.addCategoryAxis("x", "Month");
+  x.addOrderRule(["16-May", "16-Jun", "16-Jul", "16-Aug", "16-Sep", "16-Oct", "16-Nov", "16-Dec", "17-Jan"])
+  var y = myChart.addMeasureAxis("y", "Number of Steps");
+  var s = myChart.addSeries("Month", dimple.plot.bar);
+  s.afterDraw = function (shape, data) {
+    var s = d3.select(shape),
+    rect = {
+      x: parseFloat(s.attr("x")),
+      y: parseFloat(s.attr("y")),
+      width: parseFloat(s.attr("width")),
+      height: parseFloat(s.attr("height"))
+    };
+    if (rect.height >= 8) {
+      svg.append("text")
+      .attr("x", rect.x + rect.width / 2)
+      .attr("y", rect.y + rect.height / 2 + 3.5)
+      .style("text-anchor", "middle")
+      .style("font-size", "10px")
+      .style("font-family", "sans-serif")
+      .style("opacity", 0.6)
+      .style("pointer-events", "none")
+      .text(d3.format(",.1f")(data.yValue));
+    }
+  };
+  myChart.draw();
+});
+</script>
+</div><!--chartContainer-->
+<div class="container">
+  <div id="row">
+    <div class="col-md-10 col-md-offset-1">
+      <p>For my third visualization, I wanted to plot physical activity and sleep as lines on the same graph. Unfortunately, Dimple.js does not easily support multi-axis line graphs so I used Microsoft Excel to create the graph and exported it as a PNG file.</p>
+    </div><!--col-->
+  </div><!--row-->
+  </div><!--container-->
+<div id="chart2Container"  style="text-align:center">
+ <img id = "chart2" src ="chart2.png">
+ </div>
+<div class="container">
+  <div id="row">
+    <div class="col-md-10 col-md-offset-1">
+      <h4>Analysis</h4>
+      <p>The amount of sleep and the amount of physical activity I performed do follow similar patterns. Both sleep and physical activity climbed between the months of July and September, later dropping in August. This makes sense as I began DT Bootcamp in August and was less active and rested less.</p>
+      <p>There is a sharp spike in my sleep in December, which may be explained by holiday break from school and by the beginning of warmer weather.</p>
+      <p>Creating three different types of graphs allowed me to look for patterns in my sleep and physical activity, while also comparing the relationship these attributes have to each other.</p>
+    </div><!--col-->
+  </div><!--row-->
+  </div><!--container-->
+</body>
+</html>

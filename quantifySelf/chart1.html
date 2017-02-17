@@ -1,0 +1,20 @@
+
+ <div id="chart1">
+  <div id="chartContainer" style="text-align:center">
+    <h3></h3>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.3.0/d3.js"></script>
+    <script src="http://dimplejs.org/dist/dimple.v2.3.0.min.js"></script>
+    <script type="text/javascript">
+      var svg = dimple.newSvg("#chartContainer", 590, 400);
+      d3.csv("data/fb_2016_clean.csv", function(data) {
+        var myChart = new dimple.chart(svg, data);
+        var x = myChart.addCategoryAxis("x", ["Month"]);
+        x.addOrderRule(["16-May", "16-Jun", "16-Jul", "16-Aug", "16-Sep", "16-Oct", "16-Nov", "16-Dec", "17-Jan"])
+        myChart.addMeasureAxis("y", ["Minutes Asleep"]);
+        myChart.addMeasureAxis("z", ["Minutes Asleep"]);
+        myChart.addSeries("", dimple.plot.bubble);
+        myChart.draw();
+      });
+  </script>
+  </div>
+  </div>

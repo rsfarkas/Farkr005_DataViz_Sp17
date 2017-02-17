@@ -1,0 +1,32 @@
+ body{
+ 	font-family: 'Inconsolata', monospace !important;
+ }
+
+ svg{
+ 	overflow-y: hidden;
+ }
+
+ #chartContainer{
+ 	text-align:center;
+ }
+
+ #chart1{
+ 	width:100%;
+ 	text-align:center;
+ }
+
+
+ object{
+ 	height:410px;
+ 	width:590px;
+ }
+
+ #title{
+ 	text-align: center;
+ }
+
+ #chart2 {
+ 	width: 590px;
+    height: 400px;
+}
+ 

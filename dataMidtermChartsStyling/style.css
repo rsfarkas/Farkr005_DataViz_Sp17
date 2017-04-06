@@ -1,0 +1,59 @@
+ body{
+ 	font-family: 'Inconsolata', monospace !important;
+ 	background-color: rgba(159, 193, 104, 0.67);
+ }
+
+ svg{
+ 	overflow-y: hidden;
+ }
+
+
+ #chart1{
+ 	width:100%;
+ }
+
+ #bubsize{
+  font-size:17px;
+ }
+
+ p{
+  font-size: 25px;
+  color: white;
+ }
+
+ #chartContainer{
+ 	text-align: center;
+ }
+
+ .mt100{
+  margin-top:100px;
+ }
+
+ .mb100{
+  margin-bottom:100px;
+ }
+
+.tac{
+	text-align:center;
+}
+
+ object{
+ 	height:510px;
+ 	width:590px;
+ }
+
+
+h1{
+	margin-top:100px;
+  font-size:6em !important;
+	color:white;
+}
+.logo {
+  display: block;
+  text-indent: -9999px;
+  background-repeat:no-repeat;
+  height: 460px;
+  width: 274px;
+  background-size: 275px 460px;
+  background: url(avo-icon.svg);
+}
